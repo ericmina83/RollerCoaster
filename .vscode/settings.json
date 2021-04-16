@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "qopenglfunctions": "cpp"
+        "qopenglfunctions": "cpp",
+        "qvector3d": "cpp",
+        "qmatrix4x4": "cpp"
     }
 }

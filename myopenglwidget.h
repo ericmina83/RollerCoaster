@@ -1,6 +1,8 @@
 #ifndef MYOPENGLWIDGET_H
 #define MYOPENGLWIDGET_H
 
+#include "Camera.h"
+
 #include <QWidget>
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
@@ -18,13 +20,14 @@ public:
     explicit MyOpenGLWidget(QWidget *parent = nullptr);
 
     QMatrix4x4 projection;
-    QMatrix4x4 view;
     QMatrix4x4 model;
 
     QOpenGLShaderProgram *program;
 
     QOpenGLBuffer *arrayBuf;
     QOpenGLBuffer *indexBuf;
+
+    Camera *camera;
 
     int array_size;
     int index_size;

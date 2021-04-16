@@ -1,4 +1,5 @@
-//varying highp vec4 var_fcolor;
+#version 140
+
 varying highp vec4 var_fcolor;
 
 void main(void)

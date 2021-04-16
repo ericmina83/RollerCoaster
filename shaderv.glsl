@@ -1,3 +1,5 @@
+#version 140
+
 attribute highp vec3 a_vertex;
 attribute highp vec3 a_fcolor;
 

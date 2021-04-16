@@ -27,8 +27,11 @@ GLushort indices[] = {
     0, 1, 2, 3, 6, 7, 4, 5, 0, 1, 1, 1, 3, 5, 7, 7, 0, 0, 0, 2, 4, 6};
 
 MyOpenGLWidget::MyOpenGLWidget(QWidget *parent)
-    : QOpenGLWidget(parent), program(new QOpenGLShaderProgram()), arrayBuf(new QOpenGLBuffer()), indexBuf(new QOpenGLBuffer(QOpenGLBuffer::IndexBuffer))
+    : QOpenGLWidget(parent)
 {
+    program = new QOpenGLShaderProgram();
+    arrayBuf = new QOpenGLBuffer();
+    indexBuf = new QOpenGLBuffer(QOpenGLBuffer::IndexBuffer);
 }
 
 void MyOpenGLWidget::initializeGL()
@@ -81,10 +84,10 @@ void MyOpenGLWidget::initializeGL()
 
     timer.start(33, this);
 
-    view.lookAt(
-        QVector3D(0.0f, 0.0f, 5.0f),
-        QVector3D(0.0f, 0.0f, 0.0f),
-        QVector3D(0.0f, 1.0f, 0.0f));
+    camera = new Camera(
+        QVector3D(0, 0, 5),
+        QVector3D(0, 1, 0),
+        QVector3D(0, 0, 0));
 }
 
 void MyOpenGLWidget::resizeGL(int w, int h)
@@ -104,13 +107,13 @@ void MyOpenGLWidget::resizeGL(int w, int h)
 
 void MyOpenGLWidget::paintGL()
 {
-    qDebug() << "paintGL";
+    // qDebug() << "paintGL";
 
     // Draw the scene:
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     program->setUniformValue("u_m", model);
-    program->setUniformValue("u_v", view);
+    program->setUniformValue("u_v", camera->getViewMatrix());
 
     arrayBuf->bind();
     indexBuf->bind();

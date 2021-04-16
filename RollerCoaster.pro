@@ -11,11 +11,13 @@ CONFIG += c++11
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    myopenglwidget.cpp
+    myopenglwidget.cpp \
+    Camera.cpp
 
 HEADERS += \
     mainwindow.h \
-    myopenglwidget.h
+    myopenglwidget.h \
+    Camera.h
 
 FORMS += \
     mainwindow.ui

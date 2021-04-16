@@ -1,13 +1,13 @@
-#version 140
+#version 330
 
-attribute highp vec3 a_vertex;
-attribute highp vec3 a_fcolor;
+layout (location = 0) in vec3 a_vertex;
+layout (location = 1) in vec3 a_fcolor;
 
-uniform highp mat4 u_p;
-uniform highp mat4 u_v;
-uniform highp mat4 u_m;
+uniform mat4 u_p;
+uniform mat4 u_v;
+uniform mat4 u_m;
 
-varying highp vec4 var_fcolor;
+out vec4 var_fcolor;
 
 void main(void)
 {

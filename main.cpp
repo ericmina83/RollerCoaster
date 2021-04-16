@@ -7,9 +7,20 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-//    QSurfaceFormat format;
-//    format.setDepthBufferSize(24);
-//    QSurfaceFormat::setDefaultFormat(format);
+    QSurfaceFormat fmt;
+    fmt.setDepthBufferSize(24);
+    if (QOpenGLContext::openGLModuleType() == QOpenGLContext::LibGL)
+    {
+        qDebug("Requesting 3.3 core context");
+        fmt.setVersion(3, 3);
+        fmt.setProfile(QSurfaceFormat::CoreProfile);
+    }
+    else
+    {
+        qDebug("Requesting 3.0 context");
+        fmt.setVersion(3, 0);
+    }
+    QSurfaceFormat::setDefaultFormat(fmt);
 
     MainWindow w;
     w.show();

@@ -12,6 +12,7 @@
 #include <QOpenGLShaderProgram>
 #include <QOpenGLBuffer>
 #include <QBasicTimer>
+#include <QOpenGLVertexArrayObject>
 
 class MyOpenGLWidget : public QOpenGLWidget, protected QOpenGLFunctions
 {
@@ -27,6 +28,8 @@ public:
     QOpenGLBuffer *arrayBuf;
     QOpenGLBuffer *indexBuf;
 
+    QOpenGLVertexArrayObject * vao;
+
     Camera *camera;
 
     int array_size;
@@ -34,6 +37,8 @@ public:
 
     int a_fcolor;
     int a_vertex;
+
+    QVector3D light;
 
 protected:
     void initializeGL() override;

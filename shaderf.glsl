@@ -1,9 +1,11 @@
-#version 140
+#version 330
 
-varying highp vec4 var_fcolor;
+in vec4 var_fcolor;
+
+out vec4 fragColor;
 
 void main(void)
 {
 //    gl_FragColor = vec4(0.5f, 0.5f, 0.5f, 0.5);
-    gl_FragColor = var_fcolor;
+    fragColor = var_fcolor;
 }

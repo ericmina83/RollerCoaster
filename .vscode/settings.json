@@ -2,6 +2,7 @@
     "files.associations": {
         "qopenglfunctions": "cpp",
         "qvector3d": "cpp",
-        "qmatrix4x4": "cpp"
+        "qmatrix4x4": "cpp",
+        "functional": "cpp"
     }
 }

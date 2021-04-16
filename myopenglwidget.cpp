@@ -32,6 +32,7 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget *parent)
     program = new QOpenGLShaderProgram();
     arrayBuf = new QOpenGLBuffer();
     indexBuf = new QOpenGLBuffer(QOpenGLBuffer::IndexBuffer);
+    vao = new QOpenGLVertexArrayObject();
 }
 
 void MyOpenGLWidget::initializeGL()
@@ -84,10 +85,33 @@ void MyOpenGLWidget::initializeGL()
 
     timer.start(33, this);
 
+    vao->create();
+    vao->bind();
+
+    quintptr offset = 0;
+
+    // Tell OpenGL programmable pipeline how to locate vertex position data
+    a_vertex = program->attributeLocation("a_vertex");
+    program->enableAttributeArray(a_vertex);
+    program->setAttributeBuffer(a_vertex, GL_FLOAT, offset, 3, sizeof(VertexData));
+
+    // Offset for texture coordinate
+    offset += sizeof(QVector3D);
+
+    // Tell OpenGL programmable pipeline how to locate vertex texture coordinate data
+    a_fcolor = program->attributeLocation("a_fcolor");
+    program->enableAttributeArray(a_fcolor);
+    program->setAttributeBuffer(a_fcolor, GL_FLOAT, offset, 3, sizeof(VertexData));
+
     camera = new Camera(
         QVector3D(0, 0, 5),
         QVector3D(0, 1, 0),
         QVector3D(0, 0, 0));
+
+    light = QVector3D(0, 5, 0);
+
+    indexBuf->release();
+    arrayBuf->release();
 }
 
 void MyOpenGLWidget::resizeGL(int w, int h)
@@ -115,23 +139,8 @@ void MyOpenGLWidget::paintGL()
     program->setUniformValue("u_m", model);
     program->setUniformValue("u_v", camera->getViewMatrix());
 
-    arrayBuf->bind();
     indexBuf->bind();
-
-    quintptr offset = 0;
-
-    // Tell OpenGL programmable pipeline how to locate vertex position data
-    a_vertex = program->attributeLocation("a_vertex");
-    program->enableAttributeArray(a_vertex);
-    program->setAttributeBuffer(a_vertex, GL_FLOAT, offset, 3, sizeof(VertexData));
-
-    // Offset for texture coordinate
-    offset += sizeof(QVector3D);
-
-    // Tell OpenGL programmable pipeline how to locate vertex texture coordinate data
-    a_fcolor = program->attributeLocation("a_fcolor");
-    program->enableAttributeArray(a_fcolor);
-    program->setAttributeBuffer(a_fcolor, GL_FLOAT, offset, 3, sizeof(VertexData));
+    vao->bind();
 
     // Draw cube geometry using indices from VBO 1
     glDrawElements(GL_TRIANGLE_STRIP, index_size, GL_UNSIGNED_SHORT, 0);

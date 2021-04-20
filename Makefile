@@ -359,8 +359,10 @@ compiler_rcc_clean:
 	-$(DEL_FILE) qrc_shader.cpp
 qrc_shader.cpp: shader.qrc \
 		/usr/lib/qt5/bin/rcc \
-		shaderf.glsl \
-		shaderv.glsl
+		cube.vsh \
+		light.fsh \
+		light.vsh \
+		cube.fsh
 	/usr/lib/qt5/bin/rcc -name shader shader.qrc -o qrc_shader.cpp
 
 compiler_moc_predefs_make_all: moc_predefs.h

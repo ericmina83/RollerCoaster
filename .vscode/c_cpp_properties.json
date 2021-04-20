@@ -9,7 +9,6 @@
                 "/usr/include/x86_64-linux-gnu/qt5/QtGui",
                 "/usr/include/x86_64-linux-gnu/qt5/QtCore",
                 "/usr/include/x86_64-linux-gnu/qt5/QtOpenGL",
-                "/usr/include/libdrm",
                 "/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++"
             ],
             "defines": [],

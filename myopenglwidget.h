@@ -35,10 +35,11 @@ public:
     int array_size;
     int index_size;
 
-    int a_fcolor;
+    int a_normal;
     int a_vertex;
 
     QVector3D light;
+    QVector3D eye;
 
 protected:
     void initializeGL() override;

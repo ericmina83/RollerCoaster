@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>shaderv.glsl</file>
-        <file>shaderf.glsl</file>
+        <file>cube.vsh</file>
+        <file>cube.fsh</file>
     </qresource>
 </RCC>

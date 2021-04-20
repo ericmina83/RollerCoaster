@@ -1,3 +1,6 @@
+#ifndef __CAMERA_H__
+#define __CAMERA_H__
+
 #include <QVector3D>
 #include <QMatrix4x4>
 
@@ -13,3 +16,5 @@ public:
 
     QMatrix4x4 getViewMatrix();
 };
+
+#endif

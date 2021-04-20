@@ -12,10 +12,10 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -O2 -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtOpenGL -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -isystem /usr/include/libdrm -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
+INCPATH       = -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -isystem /usr/include/libdrm -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
 QMAKE         = /usr/lib/qt5/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -38,7 +38,7 @@ DISTNAME      = RollerCoaster1.0.0
 DISTDIR = /home/jyunanzou/workspace/RollerCoaster/.tmp/RollerCoaster1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1
-LIBS          = $(SUBLIBS) -lQt5OpenGL -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -53,14 +53,24 @@ OBJECTS_DIR   = ./
 SOURCES       = main.cpp \
 		mainwindow.cpp \
 		myopenglwidget.cpp \
-		Camera.cpp qrc_shader.cpp \
+		Camera.cpp \
+		Track.cpp \
+		MyShader.cpp \
+		Light.cpp \
+		Cube.cpp qrc_shader.cpp \
+		qrc_image.cpp \
 		moc_mainwindow.cpp \
 		moc_myopenglwidget.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		myopenglwidget.o \
 		Camera.o \
+		Track.o \
+		MyShader.o \
+		Light.o \
+		Cube.o \
 		qrc_shader.o \
+		qrc_image.o \
 		moc_mainwindow.o \
 		moc_myopenglwidget.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -138,10 +148,18 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		RollerCoaster.pro mainwindow.h \
 		myopenglwidget.h \
-		Camera.h main.cpp \
+		Camera.h \
+		Track.h \
+		MyShader.h \
+		Light.h \
+		Cube.h main.cpp \
 		mainwindow.cpp \
 		myopenglwidget.cpp \
-		Camera.cpp
+		Camera.cpp \
+		Track.cpp \
+		MyShader.cpp \
+		Light.cpp \
+		Cube.cpp
 QMAKE_TARGET  = RollerCoaster
 DESTDIR       = 
 TARGET        = RollerCoaster
@@ -228,7 +246,7 @@ Makefile: RollerCoaster.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmak
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		RollerCoaster.pro \
 		shader.qrc \
-		/usr/lib/x86_64-linux-gnu/libQt5OpenGL.prl \
+		image.qrc \
 		/usr/lib/x86_64-linux-gnu/libQt5Widgets.prl \
 		/usr/lib/x86_64-linux-gnu/libQt5Gui.prl \
 		/usr/lib/x86_64-linux-gnu/libQt5Core.prl
@@ -308,7 +326,7 @@ Makefile: RollerCoaster.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmak
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf:
 RollerCoaster.pro:
 shader.qrc:
-/usr/lib/x86_64-linux-gnu/libQt5OpenGL.prl:
+image.qrc:
 /usr/lib/x86_64-linux-gnu/libQt5Widgets.prl:
 /usr/lib/x86_64-linux-gnu/libQt5Gui.prl:
 /usr/lib/x86_64-linux-gnu/libQt5Core.prl:
@@ -326,10 +344,10 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents shader.qrc $(DISTDIR)/
+	$(COPY_FILE) --parents shader.qrc image.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h myopenglwidget.h Camera.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp mainwindow.cpp myopenglwidget.cpp Camera.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.h myopenglwidget.h Camera.h Track.h MyShader.h Light.h Cube.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp mainwindow.cpp myopenglwidget.cpp Camera.cpp Track.cpp MyShader.cpp Light.cpp Cube.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents mainwindow.ui $(DISTDIR)/
 
 
@@ -354,9 +372,9 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all: qrc_shader.cpp
+compiler_rcc_make_all: qrc_shader.cpp qrc_image.cpp
 compiler_rcc_clean:
-	-$(DEL_FILE) qrc_shader.cpp
+	-$(DEL_FILE) qrc_shader.cpp qrc_image.cpp
 qrc_shader.cpp: shader.qrc \
 		/usr/lib/qt5/bin/rcc \
 		cube.vsh \
@@ -364,6 +382,11 @@ qrc_shader.cpp: shader.qrc \
 		light.vsh \
 		cube.fsh
 	/usr/lib/qt5/bin/rcc -name shader shader.qrc -o qrc_shader.cpp
+
+qrc_image.cpp: image.qrc \
+		/usr/lib/qt5/bin/rcc \
+		mountain.png
+	/usr/lib/qt5/bin/rcc -name image image.qrc -o qrc_image.cpp
 
 compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
@@ -376,16 +399,22 @@ compiler_moc_header_clean:
 	-$(DEL_FILE) moc_mainwindow.cpp moc_myopenglwidget.cpp
 moc_mainwindow.cpp: myopenglwidget.h \
 		Camera.h \
+		Cube.h \
+		MyShader.h \
+		Light.h \
 		mainwindow.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/jyunanzou/workspace/RollerCoaster -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/jyunanzou/workspace/RollerCoaster -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
 
 moc_myopenglwidget.cpp: Camera.h \
+		Cube.h \
+		MyShader.h \
+		Light.h \
 		myopenglwidget.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/jyunanzou/workspace/RollerCoaster -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtOpenGL -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include myopenglwidget.h -o moc_myopenglwidget.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/jyunanzou/workspace/RollerCoaster -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include myopenglwidget.h -o moc_myopenglwidget.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -408,24 +437,53 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 
 main.o: main.cpp mainwindow.h \
 		myopenglwidget.h \
-		Camera.h
+		Camera.h \
+		Cube.h \
+		MyShader.h \
+		Light.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 mainwindow.o: mainwindow.cpp mainwindow.h \
 		myopenglwidget.h \
 		Camera.h \
+		Cube.h \
+		MyShader.h \
+		Light.h \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
 myopenglwidget.o: myopenglwidget.cpp myopenglwidget.h \
-		Camera.h
+		Camera.h \
+		Cube.h \
+		MyShader.h \
+		Light.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o myopenglwidget.o myopenglwidget.cpp
 
 Camera.o: Camera.cpp Camera.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Camera.o Camera.cpp
 
+Track.o: Track.cpp Track.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Track.o Track.cpp
+
+MyShader.o: MyShader.cpp MyShader.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MyShader.o MyShader.cpp
+
+Light.o: Light.cpp Light.h \
+		MyShader.h \
+		Camera.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Light.o Light.cpp
+
+Cube.o: Cube.cpp Cube.h \
+		MyShader.h \
+		Camera.h \
+		Light.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Cube.o Cube.cpp
+
 qrc_shader.o: qrc_shader.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_shader.o qrc_shader.cpp
+
+qrc_image.o: qrc_image.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_image.o qrc_image.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp

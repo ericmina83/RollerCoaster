@@ -13,21 +13,28 @@ SOURCES += \
     mainwindow.cpp \
     myopenglwidget.cpp \
     Camera.cpp \
+    Track.cpp \
+    MyShader.cpp \
+    Light.cpp \
+    Cube.cpp
 
 HEADERS += \
     mainwindow.h \
     myopenglwidget.h \
     Camera.h \
+    Track.h \
+    MyShader.h \
+    Light.h \
+    Cube.h
 
 FORMS += \
     mainwindow.ui
 
 RESOURCES += \
-    shader.qrc
+    shader.qrc \
+    image.qrc
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
-
-QT += opengl

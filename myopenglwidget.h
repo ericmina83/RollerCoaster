@@ -2,6 +2,7 @@
 #define MYOPENGLWIDGET_H
 
 #include "Camera.h"
+#include "Cube.h"
 
 #include <QWidget>
 #include <QOpenGLWidget>
@@ -21,25 +22,10 @@ public:
     explicit MyOpenGLWidget(QWidget *parent = nullptr);
 
     QMatrix4x4 projection;
-    QMatrix4x4 model;
-
-    QOpenGLShaderProgram *program;
-
-    QOpenGLBuffer *arrayBuf;
-    QOpenGLBuffer *indexBuf;
-
-    QOpenGLVertexArrayObject * vao;
 
     Camera *camera;
-
-    int array_size;
-    int index_size;
-
-    int a_normal;
-    int a_vertex;
-
-    QVector3D light;
-    QVector3D eye;
+    Light *light;
+    Cube *cube;
 
 protected:
     void initializeGL() override;
@@ -47,9 +33,6 @@ protected:
     void paintGL() override;
     void timerEvent(QTimerEvent *) override;
     QBasicTimer timer;
-
-signals:
-
 };
 
 #endif // MYOPENGLWIDGET_H

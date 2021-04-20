@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file>cube.vsh</file>
         <file>cube.fsh</file>
+        <file>light.vsh</file>
+        <file>light.fsh</file>
     </qresource>
 </RCC>

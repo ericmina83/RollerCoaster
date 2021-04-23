@@ -70,3 +70,41 @@ void MyOpenGLWidget::timerEvent(QTimerEvent *)
 
     update();
 }
+
+void MyOpenGLWidget::mousePressEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::RightButton)
+    {
+        m_x = m_prev_x = event->localPos().x();
+        m_y = m_prev_y = event->localPos().y();
+
+        right_button_press = true;
+    }
+}
+
+void MyOpenGLWidget::mouseReleaseEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::RightButton)
+    {
+        right_button_press = false;
+    }
+}
+
+void MyOpenGLWidget::mouseMoveEvent(QMouseEvent *event)
+{
+    if (right_button_press)
+    {
+        m_x = event->localPos().x();
+        m_y = event->localPos().y();
+
+        QMatrix4x4 m;
+
+        m.rotate((m_prev_x - m_x) / 5.0f, camera->up);
+        m.rotate((m_prev_y - m_y) / 5.0f, camera->right);
+
+        camera->transform(m);
+
+        m_prev_x = m_x;
+        m_prev_y = m_y;
+    }
+}

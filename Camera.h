@@ -7,14 +7,16 @@
 class Camera
 {
 public:
-    Camera(QVector3D _eye, QVector3D _up, QVector3D _center);
+    Camera(QVector3D _eye, QVector3D _up, QVector3D _front);
     ~Camera();
 
     QVector3D eye;
     QVector3D up;
-    QVector3D center;
+    QVector3D front;
+    QVector3D right;
 
     QMatrix4x4 getViewMatrix();
+    void transform(QMatrix4x4 m);
 };
 
 #endif

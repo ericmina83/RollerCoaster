@@ -14,6 +14,7 @@
 #include <QOpenGLBuffer>
 #include <QBasicTimer>
 #include <QOpenGLVertexArrayObject>
+#include <QMouseEvent>
 
 class MyOpenGLWidget : public QOpenGLWidget, protected QOpenGLFunctions
 {
@@ -33,6 +34,17 @@ protected:
     void paintGL() override;
     void timerEvent(QTimerEvent *) override;
     QBasicTimer timer;
+
+    void mousePressEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
+
+    float m_x = 0;
+    float m_prev_x = 0;
+    float m_y = 0;
+    float m_prev_y = 0;
+
+    bool right_button_press = false;
 };
 
 #endif // MYOPENGLWIDGET_H

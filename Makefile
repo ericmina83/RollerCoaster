@@ -385,7 +385,9 @@ qrc_shader.cpp: shader.qrc \
 
 qrc_image.cpp: image.qrc \
 		/usr/lib/qt5/bin/rcc \
-		mountain.png
+		twitch.jpg \
+		mountain.png \
+		youtube.jpg
 	/usr/lib/qt5/bin/rcc -name image image.qrc -o qrc_image.cpp
 
 compiler_moc_predefs_make_all: moc_predefs.h

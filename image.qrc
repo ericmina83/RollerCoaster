@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>mountain.png</file>
+        <file>youtube.jpg</file>
+        <file>twitch.jpg</file>
     </qresource>
 </RCC>

@@ -6,6 +6,7 @@
 #include <QMatrix4x4>
 #include <QOpenGLBuffer>
 #include <QOpenGLFunctions>
+#include <QOpenGLTexture>
 #include <QOpenGLVertexArrayObject>
 
 class Cube : QOpenGLFunctions
@@ -18,11 +19,15 @@ private:
 
     QOpenGLVertexArrayObject *vao;
 
+    QOpenGLTexture *texture1;
+    QOpenGLTexture *texture2;
+
     int vbo_size;
     int ebo_size;
 
     int a_vertex;
     int a_normal;
+    int a_uv;
 
     QMatrix4x4 u_m;
 

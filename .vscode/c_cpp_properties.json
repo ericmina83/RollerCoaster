@@ -4,18 +4,15 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/usr/include/x86_64-linux-gnu/qt5",
-                "/usr/include/x86_64-linux-gnu/qt5/QtWidgets",
-                "/usr/include/x86_64-linux-gnu/qt5/QtGui",
-                "/usr/include/x86_64-linux-gnu/qt5/QtCore",
-                "/usr/include/x86_64-linux-gnu/qt5/QtOpenGL",
-                "/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++"
+                "/usr/local/opt/qt@5/include",
+                "/usr/local/Cellar/qt@5/5.15.5/lib/QtWidgets.framework/Headers",
+                "/usr/local/Cellar/qt@5/5.15.5/lib/QtGui.framework/Headers",
+                "/usr/local/Cellar/qt@5/5.15.5/lib/QtCore.framework/Headers"
             ],
             "defines": [],
-            "compilerPath": "/usr/bin/gcc",
             "cStandard": "gnu11",
             "cppStandard": "gnu++14",
-            "intelliSenseMode": "linux-gcc-x64"
+            "configurationProvider": "ms-vscode.makefile-tools"
         }
     ],
     "version": 4
